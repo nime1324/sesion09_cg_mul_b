@@ -29,8 +29,55 @@ function init() {
     scene.add(mesh);
     const axesHelper = new THREE.AxesHelper( 19);
     scene.add( axesHelper );
-    camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100);
-    camera.position.set(0, 0, -3);
+    camera = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerHeight, 0.1, 100);
+<!DOCTYPE html >
+   <html>
+    <head>
+    <meta charset = "utf-8"/>
+    <style>
+    body {
+        background - color: #ffffff;
+        margin: 0;
+        overflow: hidden;
+    } </style> </head> 
+    <body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r95/three.min.js"></script>
+<script>
+var camera, scene, renderer;
+var geometry, material, mesh;
+var clock;
+
+function cubo (x,y,z,material,color,wf){
+    geometry = new THREE.CubeGeometry(x, y, z);
+       switch(material){
+	case'Basic': material = new THREE.MeshBasicMaterial ({color: color, wireframe: wf}); break;
+ 	case'Standard': material = new THREE.MeshStandardMaterial ({ color: color, wireframe: wf}); break;
+	case'Physical': material = new THREE.MeshPhysicalMaterial ({ color: color, wireframe: wf}); break;
+	case'Phong': material = new THREE.MeshPhongMaterial ({ color: color, wireframe: wf}); break;
+    	case'Lambert': material = new THREE.MeshLambertMaterial ({ color: color, wireframe: wf}); break;
+   
+    }
+    cube = new THREE.Mesh(geometry, material);
+    scene.add(cube);
+    return cube;
+
+}
+function init() {
+    renderer = new THREE.WebGLRenderer();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+    scene = new THREE.Scene();
+    mesh = cubo(1, 1, 1, 'Basic', 'green' ,true);
+    mesh2 = cubo(2, 2, 2, 'Basic', 'red' ,true);
+   
+
+
+
+    const axesHelper = new THREE.AxesHelper(10);
+    scene.add( axesHelper );
+    camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);
+    camera.position.set(5, 5, 5)
+    mesh.position.set(0.5,0.5,0.5)
     camera.lookAt(mesh.position);
     clock = new THREE.Clock();
     window.addEventListener('resize', onWindowResize, false);
